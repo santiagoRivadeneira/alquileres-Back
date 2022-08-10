@@ -2,8 +2,6 @@
  const { DataTypes, Sequelize } = require("sequelize");
 
  
-
-
  module.exports = (sequelize) => {
 	let Usuario = sequelize.define("Usuarios",
 	{
@@ -17,6 +15,7 @@
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		/*
 		user_telefono: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -36,7 +35,7 @@
 	   user_descripcion: {
 		   type: DataTypes.STRING,
 		   allowNull: true,
-	   },
+	   },*/
 	 
 	},
 );

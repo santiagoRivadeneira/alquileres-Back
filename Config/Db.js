@@ -4,11 +4,6 @@ const Sequelize = require("sequelize");
 
 
 
-
-
-
-
-
 try {
 
     exports.connection = async function() { 
@@ -19,6 +14,7 @@ try {
                 charset: 'utf8',
                 collate: 'utf8_general_ci',
             },
+            port: 3306
         });
         //verificacion
     
@@ -26,7 +22,7 @@ try {
         await sequelize
         .authenticate()
         .then(() => {
-            console.log('Connection has been established successfully.');
+            console.log('Conexion exitosa');
         })
         .catch(error => {
             throw error;
