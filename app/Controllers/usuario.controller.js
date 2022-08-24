@@ -1,21 +1,22 @@
+const { usuarios } = require("../models");
 const db = require("../models");
 const Usuario = db.usuarios;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
-exports.create = (req, res) => {
-  // Validate request
+// crear un usuario
+exports.create =  async(req, res) => {
 
+  const { email, contraseña } = req.body;
 
-  // Create a Tutorial
-  const usuario = {
-    userTipo: req.body.userTipo,
-  };
+  const usuarios = { 
+    email : email,
+    contraseña: contraseña
+  }
 
   console.log(req.body)
 
-  // Save Tutorial in the database
-  Usuario.create(usuario)
+  //funciona correctamente
+  await Usuario.create(usuarios)
     .then(data => {
       res.send(data);
     })
@@ -25,5 +26,47 @@ exports.create = (req, res) => {
           err.message || "ocurrio un error al crear Usuario"
       });
     });
+ };
+
+
+ //funciona correctamente
+ exports.obtener = (req, res) => {
+  Usuario.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Hubo un problema"
+      });
+    });
 };
 
+
+
+//funciona correctamente
+exports.logearse = async (req, res) => {
+
+
+  const email = req.body.email;
+  const contraseña = req.body.contraseña;
+
+  Usuario.findOne({
+    where: {
+      [Op.and] : {
+        email: email,
+        contraseña: contraseña
+      }
+    }
+   }).then(user => {
+    if (!user) {
+     return res.status(404).json({error: 'No existe el usuario'});
+    }
+    return res.json(user);
+   });
+};
+
+
+
+ 
