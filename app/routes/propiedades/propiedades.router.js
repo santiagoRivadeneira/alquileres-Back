@@ -11,7 +11,12 @@ module.exports = app => {
 
 
 
-    router.get("/obtener:id", propiedades.findOne);
+    router.get("/obtener/:id", propiedades.findOne);
+
+
+
+    router.put("/modificar/:id", propiedades.modificar);
+
   
   
 

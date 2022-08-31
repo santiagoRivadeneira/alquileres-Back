@@ -81,22 +81,68 @@ exports.obtener = (req, res) => {
 
 
 
+
 exports.findOne = async (req, res) => {
   const propiedId = req.params.id;
+  console.log(propiedId)
 
   Propiedades.findOne({
     where: {
-      [Op.and] : {
         propiedId: propiedId,
-      }
     }
    }).then(propiedad => {
-    if (!propiedad) {
-     return res.status(404).json({error: 'no existe la propiedad'});
-    }
-    return res.json(user);
+
+    return res.json(propiedad);
    });
 };
+
+
+
+exports.modificar = async (req, res) => {
+  const propiedId = req.params.id;
+  const {
+    tipoProp,
+    precio, 
+    direccion, 
+    localidad, 
+    numeroDirec, 
+    expensas, 
+    departamento, 
+    planta,  
+    cantAmbientes, 
+    ubicacion,
+    cantBaños,
+    Wifi,
+    gasDeRed,
+    cochera
+  } = req.body
+
+  Propiedades.update({
+    where: {
+      propiedId: propiedId,
+      /*
+      tipoProp: tipoProp,
+      precio: precio,
+      direccion: direccion,
+      localidad: localidad,
+      numeroDirec: numeroDirec,
+      expensas: expensas,
+      departamento: departamento,
+      planta: planta,
+      cantAmbientes: cantAmbientes,
+      ubicacion: ubicacion,
+      cantBaños: cantBaños,
+      Wifi: Wifi,
+      gasDeRed: gasDeRed,
+      cochera: cochera,
+      */
+    }
+   }).then(propiedadModificada => {
+
+    return res.json(propiedadModificada);
+   });
+};
+
 
 
 
