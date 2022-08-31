@@ -1,4 +1,3 @@
-const { usuarios } = require("../models");
 const db = require("../models");
 const Usuario = db.usuarios;
 const Op = db.Sequelize.Op;
@@ -7,6 +6,7 @@ const Op = db.Sequelize.Op;
 exports.create =  async(req, res) => {
 
   const { email, contraseña } = req.body;
+
 
   const usuarios = { 
     email : email,

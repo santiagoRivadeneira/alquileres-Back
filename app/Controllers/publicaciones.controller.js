@@ -7,7 +7,7 @@ exports.create = (req, res) => {
 
   // crear un usuario
   const propiedad = {
-    //tipoProp: req.body.tipoProp,
+
   };
 
 
@@ -15,7 +15,6 @@ exports.create = (req, res) => {
   Propiedades.create(propiedad)
     .then(data => {
       res.send(data);
-      res.send("propiedad crearda exitosamente")
     })
     .catch(err => {
       res.status(500).send({

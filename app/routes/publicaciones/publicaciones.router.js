@@ -4,7 +4,7 @@ module.exports = app => {
     var router = require("express").Router();
   
     
-    router.post("/", propiedades.create );
+    router.post("/", publicaciones.create );
   
   
     app.use('/api/publicaciones', router);
