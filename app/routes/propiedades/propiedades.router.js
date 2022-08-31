@@ -11,7 +11,7 @@ module.exports = app => {
 
 
 
-    er.get("/obtener:id", propiedades.findOne);
+    router.get("/obtener:id", propiedades.findOne);
   
   
 

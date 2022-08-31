@@ -84,14 +84,14 @@ exports.obtener = (req, res) => {
 exports.findOne = async (req, res) => {
   const propiedId = req.params.id;
 
-  Usuario.findOne({
+  Propiedades.findOne({
     where: {
       [Op.and] : {
         propiedId: propiedId,
       }
     }
-   }).then(user => {
-    if (!propiedId) {
+   }).then(propiedad => {
+    if (!propiedad) {
      return res.status(404).json({error: 'no existe la propiedad'});
     }
     return res.json(user);
