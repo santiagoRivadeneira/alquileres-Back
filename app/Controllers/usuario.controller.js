@@ -1,6 +1,9 @@
 const db = require("../models");
 const Usuario = db.usuarios;
 const Op = db.Sequelize.Op;
+var jwt = require('jsonwebtoken');
+
+
 
 // crear un usuario
 exports.create =  async(req, res) => {
@@ -8,7 +11,7 @@ exports.create =  async(req, res) => {
   const { email, contraseña } = req.body;
 
 
-  const usuarios = { 
+  const usuarios = {
     email : email,
     contraseña: contraseña
   }
@@ -18,7 +21,10 @@ exports.create =  async(req, res) => {
   //funciona correctamente
   await Usuario.create(usuarios)
     .then(data => {
-      res.send(data);
+
+     const token = jwt.sign({ _id: data.userId },  'secretKey')
+     res.status(200).json({token});
+
     })
     .catch(err => {
       res.status(500).send({
@@ -56,17 +62,26 @@ exports.logearse = async (req, res) => {
     where: {
       [Op.and] : {
         email: email,
-        contraseña: contraseña
       }
     }
+
    }).then(user => {
-    if (!user) {
-     return res.status(404).json({error: 'No existe el usuario'});
+
+    if (!email || user == null) {
+      return res.status(401).json({error: 'No existe el usuario'});
     }
-    return res.json(user);
+
+    if (user.contraseña !== contraseña) {
+      return res.status(401).json({error: 'contraseña Erronea'});
+    }
+
+    const token = jwt.sign({ _id: user.userId },  'secretKey');
+
+    return res.status(200).json({ token })
+    
    });
 };
 
 
 
- 
+
