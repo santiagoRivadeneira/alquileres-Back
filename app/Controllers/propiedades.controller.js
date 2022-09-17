@@ -4,6 +4,13 @@ const Propiedades = db.propiedades;
 
 const Op = db.Sequelize.Op;
 
+//un propietario crea sus publicaciones y se le muestran
+
+
+
+//luego de esto en la parte de publicar va a poder elegir sus propiedades y podra publicar una de sus propiedades
+//ya creadas de esa misma persona 
+
 // crear un usuario
 exports.create = (req, res) => {
 
@@ -97,6 +104,33 @@ exports.findOne = async (req, res) => {
 };
 
 
+//los filtros funcionan
+exports.filtros = async (req, res) => {
+
+
+  const tipoProp = req.body.tipoProp;
+  const localidad = req.body.localidad;
+  
+  console.log(tipoProp, localidad)
+
+  Propiedades.findAll({
+    where: {
+      [Op.and] : {
+        tipoProp: tipoProp,
+        localidad: localidad
+      }
+    }
+   }).then(prop => {
+    if (!prop) {
+     return res.status(404).json({error: 'No existe el la propiedad'});
+    }
+    console.log(prop)
+    return res.json(prop);
+   });
+};
+
+
+//queda por ver
 
 exports.modificar = async (req, res) => {
   const propiedId = req.params.id;

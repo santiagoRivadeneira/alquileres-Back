@@ -1,27 +1,55 @@
 const db = require("../models");
-const Propiedades = db.Propiedades;
+const Publicaciones = db.publicaciones;
 const Op = db.Sequelize.Op;
 
-// crear un usuario
 exports.create = (req, res) => {
 
-  // crear un usuario
-  const propiedad = {
 
+  const {
+    precio,
+    direccion,
+    localidad,
+    numeroAmb
+  } = req.body
+
+  console.log(req.body)
+
+
+  const publicacion = {
+    precio,
+    direccion,
+    localidad,
+    numeroAmb
   };
 
 
-  // guardar usuario en la base
-  Propiedades.create(propiedad)
+  Publicaciones.create(publicacion)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "ocurrio un error al crear Usuario"
+          err.message || "ocurrio un error al crear una publicaion"
          
       });
      
+    });
+};
+
+
+
+
+
+exports.obtener = (req, res) => {
+  Publicaciones.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Hubo un problema"
+      });
     });
 };

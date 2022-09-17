@@ -21,5 +21,6 @@ db.sequelize = sequelize;
 
 db.usuarios = require("../models/usuarios.model")(sequelize, Sequelize);
 db.propiedades = require("../models/propiedades.model")(sequelize, Sequelize);
+db.publicaciones = require("../models/publicacion.model")(sequelize, Sequelize);
 
 module.exports = db;

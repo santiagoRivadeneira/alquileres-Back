@@ -17,6 +17,10 @@ module.exports = app => {
 
     router.put("/modificar/:id", propiedades.modificar);
 
+
+    
+    router.post("/filtros", propiedades.filtros);
+
   
   
 

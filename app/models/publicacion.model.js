@@ -1,27 +1,27 @@
 module.exports = (sequelize, Sequelize) => {
-	const Propiedades = sequelize.define("propiedades", {
+	const Publicaciones = sequelize.define("publicaciones", {
 	  publiId: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
 		allowNull: false,
 		primaryKey: true,
 	  },
-      amoblado: {
-        type: Sequelize.String,
+    precio: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      descripcion: {
-        type: Sequelize.String,
+      direccion: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      requisitos: {
-        type: Sequelize.String,
+      localidad: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      disponibilidad: {
-        type: Sequelize.String,
+      numeroAmb: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       }
 	});
-	return Propiedades;
+	return Publicaciones;
   };
