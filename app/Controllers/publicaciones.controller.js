@@ -1,9 +1,18 @@
 const db = require("../models");
 const Publicaciones = db.publicaciones;
 const Op = db.Sequelize.Op;
+var jwt = require('jsonwebtoken');
+
 
 exports.create = (req, res) => {
 
+  const token = req.headers.authorization.split(' ')[1]
+
+
+
+  const payload = jwt.verify(token, 'secretKey')
+
+  var userId = payload._id 
 
   const {
     precio,
@@ -19,12 +28,16 @@ exports.create = (req, res) => {
     precio,
     direccion,
     localidad,
-    numeroAmb
+    numeroAmb,
+    userId,
   };
+
 
 
   Publicaciones.create(publicacion)
     .then(data => {
+      
+
       res.send(data);
     })
     .catch(err => {

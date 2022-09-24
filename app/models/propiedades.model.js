@@ -61,5 +61,7 @@ module.exports = (sequelize, Sequelize) => {
       }
       */
 	});
+
+
 	return Propiedades;
   };

@@ -68,7 +68,7 @@ exports.logearse = async (req, res) => {
    }).then(user => {
 
     if (!email || user == null) {
-      return res.status(401).json({error: 'No existe el usuario'});
+      return res.status(401).json({error: 'No existe el email'});
     }
 
     if (user.contraseña !== contraseña) {

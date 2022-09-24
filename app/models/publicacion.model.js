@@ -21,7 +21,14 @@ module.exports = (sequelize, Sequelize) => {
       numeroAmb: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      }
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'usuarios',
+            key: 'userId'
+        }
+    }
 	});
 	return Publicaciones;
   };
