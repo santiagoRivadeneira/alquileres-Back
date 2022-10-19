@@ -1,4 +1,5 @@
 const { check } = require('express-validator');
+const utils = require("../../utils/utils")
 
 module.exports = app => {
     const usuario = require("../../Controllers/usuario.controller");
@@ -16,6 +17,10 @@ module.exports = app => {
 
 
     router.get("/obtener", usuario.obtener);
+
+
+    router.get("/obtener/:id", usuario.findOne);
+    
 
     router.post("/login", usuario.logearse);
 

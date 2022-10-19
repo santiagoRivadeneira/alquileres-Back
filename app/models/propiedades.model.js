@@ -52,7 +52,14 @@ module.exports = (sequelize, Sequelize) => {
       },
       cochera: {
         type: Sequelize.STRING
-      }
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'usuarios',
+            key: 'userId'
+        }
+    }
       /*
       ver como se van a trabajar las fotos
       fotos: {

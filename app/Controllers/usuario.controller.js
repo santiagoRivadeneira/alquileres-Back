@@ -37,6 +37,11 @@ exports.create =  async(req, res) => {
 
  //funciona correctamente
  exports.obtener = (req, res) => {
+
+
+
+
+
   Usuario.findAll()
     .then(data => {
       res.send(data);
@@ -49,6 +54,21 @@ exports.create =  async(req, res) => {
     });
 };
 
+//obtener por Id
+exports.findOne = async (req, res) => {
+
+  const userId = req.params.id
+
+  Usuario.findOne({
+    where: {
+        userId: userId,
+    }
+   }).then(user => {
+
+    return res.json(user);
+   });
+};
+
 
 
 //funciona correctamente
@@ -57,6 +77,7 @@ exports.logearse = async (req, res) => {
 
   const email = req.body.email;
   const contraseña = req.body.contraseña;
+
 
   Usuario.findOne({
     where: {
@@ -77,7 +98,7 @@ exports.logearse = async (req, res) => {
 
     const token = jwt.sign({ _id: user.userId },  'secretKey');
 
-    return res.status(200).json({ token })
+    return res.status(200).json({ token, userId:user.userId  })
     
    });
 };

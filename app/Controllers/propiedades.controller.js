@@ -1,5 +1,7 @@
 const db = require("../models");
 const Propiedades = db.propiedades;
+var jwt = require('jsonwebtoken');
+
 
 
 const Op = db.Sequelize.Op;
@@ -12,7 +14,19 @@ const Op = db.Sequelize.Op;
 //ya creadas de esa misma persona 
 
 // crear un usuario
+
+
 exports.create = (req, res) => {
+
+
+  const token = req.headers.authorization.split(' ')[1]
+
+
+
+  const payload = jwt.verify(token, 'secretKey')
+
+  var userId = payload._id 
+
 
 //tiene 14
   const {
@@ -52,6 +66,7 @@ exports.create = (req, res) => {
     Wifi: Wifi,
     gasDeRed: gasDeRed,
     cochera: cochera,
+    userId
   };
 
 
