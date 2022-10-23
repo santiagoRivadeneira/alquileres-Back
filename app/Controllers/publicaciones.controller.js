@@ -1,5 +1,6 @@
 const db = require("../models");
 const Publicaciones = db.publicaciones;
+const Usuario = db.Usuario;
 const Op = db.Sequelize.Op;
 var jwt = require('jsonwebtoken');
 
@@ -35,11 +36,12 @@ exports.create = (req, res) => {
   };
 
 
-
   Publicaciones.create(publicacion)
+
+ 
+
     .then(data => {
       
-
       res.send(data);
     })
     .catch(err => {
@@ -50,6 +52,8 @@ exports.create = (req, res) => {
       });
      
     });
+
+
 };
 
 

@@ -4,16 +4,18 @@ const Op = db.Sequelize.Op;
 var jwt = require('jsonwebtoken');
 
 
-
+//agregar nombre de usuario al registrarse 
 // crear un usuario
 exports.create =  async(req, res) => {
 
   const { email, contraseña } = req.body;
 
 
+
   const usuarios = {
     email : email,
-    contraseña: contraseña
+    contraseña: contraseña,
+    userTipo: "inquilino"
   }
 
   console.log(req.body)
@@ -75,8 +77,8 @@ exports.findOne = async (req, res) => {
 exports.logearse = async (req, res) => {
 
 
-  const email = req.body.email;
-  const contraseña = req.body.contraseña;
+  let email = req.body.email;
+  let contraseña = req.body.contraseña;
 
 
   Usuario.findOne({
@@ -101,7 +103,13 @@ exports.logearse = async (req, res) => {
     return res.status(200).json({ token, userId:user.userId  })
     
    });
-};
+
+}
+
+
+
+
+
 
 
 

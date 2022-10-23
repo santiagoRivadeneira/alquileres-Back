@@ -25,6 +25,10 @@ module.exports = app => {
     router.post("/login", usuario.logearse);
 
 
+    //router.put("/modificar/:id", usuario.update);
+
+
+
 
 
     app.use('/api/usuarios', router);

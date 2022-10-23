@@ -21,6 +21,9 @@ module.exports = app => {
     
     router.post("/filtros", propiedades.filtros);
 
+
+    router.delete("/eliminar/:id", propiedades.delete);
+
   
   
 

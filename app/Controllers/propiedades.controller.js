@@ -118,7 +118,7 @@ exports.findOne = async (req, res) => {
    });
 };
 
-
+//trae de a una sola propiedad, ver porque
 //los filtros funcionan
 exports.filtros = async (req, res) => {
 
@@ -147,8 +147,10 @@ exports.filtros = async (req, res) => {
 
 //queda por ver
 
+//funciona el modificar, ahora queda ver en los demas lugares
 exports.modificar = async (req, res) => {
   const propiedId = req.params.id;
+
   const {
     tipoProp,
     precio, 
@@ -166,30 +168,54 @@ exports.modificar = async (req, res) => {
     cochera
   } = req.body
 
-  Propiedades.update({
-    where: {
-      propiedId: propiedId,
-      /*
-      tipoProp: tipoProp,
-      precio: precio,
-      direccion: direccion,
-      localidad: localidad,
-      numeroDirec: numeroDirec,
-      expensas: expensas,
-      departamento: departamento,
-      planta: planta,
-      cantAmbientes: cantAmbientes,
-      ubicacion: ubicacion,
-      cantBaños: cantBaños,
-      Wifi: Wifi,
-      gasDeRed: gasDeRed,
-      cochera: cochera,
-      */
+
+console.log(propiedId)
+  await Propiedades.update(
+    {
+      tipoProp: "casa",
+    },
+    {
+      where: { propiedId: propiedId },
     }
-   }).then(propiedadModificada => {
+  ).then(propiedadModificada => {
 
     return res.json(propiedadModificada);
-   });
+   })
+   .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Hubo un problema"
+    });
+  });;
+};
+
+
+
+//esto funciona, simpleente falta pasarle el id correctametne(propiedId)
+exports.delete = (req, res) => {
+  const propiedId = req.params.id;
+
+  console.log(propiedId)
+
+  Propiedades.destroy({
+    where: { propiedId: propiedId }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Elimino la publicacion"
+        });
+      } else {
+        res.send({
+          message: `No se puede=${propiedId}. no se encontro`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Tutorial with id=" + propiedId
+      });
+    });
 };
 
 
