@@ -1,4 +1,6 @@
 var jwt = require('jsonwebtoken');
+const multer  = require('multer')
+
 
 
 
@@ -35,3 +37,7 @@ exports.verificarToken = (req, res, next) => {
 
 
 }
+
+
+
+

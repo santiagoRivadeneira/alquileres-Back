@@ -4,44 +4,52 @@ const Op = db.Sequelize.Op;
 var jwt = require('jsonwebtoken');
 
 
+
+
 //agregar nombre de usuario al registrarse 
 // crear un usuario
 exports.create =  async(req, res) => {
 
-  const { email, contraseña } = req.body;
+  const { email, contraseña, nombreUsuario } = req.body;
 
 
 
   const usuarios = {
+    nombreUsuario: nombreUsuario,
     email : email,
     contraseña: contraseña,
     userTipo: "inquilino"
   }
 
-  console.log(req.body)
-
   //funciona correctamente
-  await Usuario.create(usuarios)
+    await Usuario.create(usuarios)
     .then(data => {
 
-     const token = jwt.sign({ _id: data.userId },  'secretKey')
-     res.status(200).json({token});
 
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "ocurrio un error al crear Usuario"
-      });
-    });
- };
+        const token = jwt.sign({ _id: data.userId },  'secretKey')
+        res.status(200).json({token});
+
+ 
+     })
+     .catch(err => {
+       res.status(500).send({
+         message:
+           err.message || "ocurrio un error al crear Usuario"
+       });
+     });
+  }
+
+
+
+
+
+
+
+
 
 
  //funciona correctamente
  exports.obtener = (req, res) => {
-
-
-
 
 
   Usuario.findAll()
@@ -104,11 +112,39 @@ exports.logearse = async (req, res) => {
     
    });
 
-}
+  }
 
 
-
-
+  exports.modificar = async (req, res) => {
+    const userId = req.params.id;
+  
+    const {
+      email,
+      contraseña
+    } = req.body
+    console.log(email, contraseña + "HOLAAAAAAAAAAAAAAAAAAAAAA")
+  
+  
+  console.log(userId)
+    await Usuario.update(
+      {
+        email,
+        contraseña
+      },
+      {
+        where: { userId: userId },
+      }
+    ).then(usuarioModificado => {
+  
+      return res.json(usuarioModificado);
+     })
+     .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Hubo un problema"
+      });
+    });;
+  };
 
 
 

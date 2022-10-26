@@ -28,7 +28,10 @@ module.exports = (sequelize, Sequelize) => {
             model: 'usuarios',
             key: 'userId'
         }
-    }
+    },
+    fotoPubli: {
+      type: Sequelize.STRING
+    },
 	});
 	return Publicaciones;
   };

@@ -13,10 +13,20 @@ module.exports = (sequelize, Sequelize) => {
 	email: {
 		type: Sequelize.STRING,
 		allowNull: true,
+		unique: {
+            msg: 'el usuario ya existe'
+        },
+	},
+	nombreUsuario: {
+		type: Sequelize.STRING,
+		allowNull: false,
 	},
 	contraseña: {
 		type: Sequelize.STRING,
-		allowNull: true,
+		allowNull: false,
+	},
+	fotoPerfil: {
+		type: Sequelize.STRING
 	},
 	});
 	return Usuarios;

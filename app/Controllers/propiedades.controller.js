@@ -1,5 +1,6 @@
 const db = require("../models");
 const Propiedades = db.propiedades;
+const Usuario = db.usuarios
 var jwt = require('jsonwebtoken');
 
 
@@ -16,7 +17,7 @@ const Op = db.Sequelize.Op;
 // crear un usuario
 
 
-exports.create = (req, res) => {
+exports.create = async(req, res) => {
 
 
   const token = req.headers.authorization.split(' ')[1]
@@ -43,7 +44,7 @@ exports.create = (req, res) => {
     cantBaños,
     Wifi,
     gasDeRed,
-    cochera
+    cochera,
   } = req.body
 
   console.log(req.body)
@@ -71,7 +72,7 @@ exports.create = (req, res) => {
 
 
   // guardar usuario en la base(funciona correctamente, falta agregar logica de negocio)
-  Propiedades.create(propiedad)
+  await Propiedades.create(propiedad)
     .then(data => {
       res.send(data);
     })
@@ -82,6 +83,25 @@ exports.create = (req, res) => {
          
       });
      
+    });
+
+console.log(userId)
+  
+    await Usuario.update(
+      {
+        userTipo: "propietario"
+      },
+      {
+        where: {userId: userId}
+      }
+    ).then(usuarioModi => {
+  
+     })
+     .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Hubo un problema"
+      });
     });
 
 };
@@ -146,7 +166,6 @@ exports.filtros = async (req, res) => {
 
 
 //queda por ver
-
 //funciona el modificar, ahora queda ver en los demas lugares
 exports.modificar = async (req, res) => {
   const propiedId = req.params.id;
@@ -172,7 +191,20 @@ exports.modificar = async (req, res) => {
 console.log(propiedId)
   await Propiedades.update(
     {
-      tipoProp: "casa",
+      tipoProp,
+      precio, 
+      direccion, 
+      localidad, 
+      numeroDirec, 
+      expensas, 
+      departamento, 
+      planta,  
+      cantAmbientes, 
+      ubicacion,
+      cantBaños,
+      Wifi,
+      gasDeRed,
+      cochera
     },
     {
       where: { propiedId: propiedId },
@@ -217,6 +249,8 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+
 
 
 

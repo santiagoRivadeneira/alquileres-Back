@@ -7,7 +7,7 @@ module.exports = app => {
     var router = require("express").Router();
   
 
-    router.post("/", 
+    router.post("/",
     [
         check('usuario', 'Agrega un usuario válido'),
         check('password', 'El password debe ser minimo de 6 caracteres').isLength({ min: 6})
@@ -25,7 +25,7 @@ module.exports = app => {
     router.post("/login", usuario.logearse);
 
 
-    //router.put("/modificar/:id", usuario.update);
+    router.put("/modificar/:id", usuario.modificar);
 
 
 

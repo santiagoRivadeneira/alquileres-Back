@@ -59,7 +59,10 @@ module.exports = (sequelize, Sequelize) => {
             model: 'usuarios',
             key: 'userId'
         }
-    }
+    },
+    fotoPropie: {
+      type: Sequelize.STRING
+    },
       /*
       ver como se van a trabajar las fotos
       fotos: {
